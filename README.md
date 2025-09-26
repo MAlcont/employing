@@ -1,2 +1,2 @@
 # employing
-lowlevel dot acadamy 02hero in C
+lowlevel dot academy 02hero in C
