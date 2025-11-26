@@ -10,7 +10,7 @@
 #include "common.h"
 #include "parse.h"
 
-int add_employee(struct dbheader_t *dbhdr, struct employee_t *employees, char *addstring) {
+int add_employee(struct dbheader_t *dbhdr, struct employee_t **employees, char *addstring) {
 	if (NULL == dbhdr) return STATUS_ERROR;
 	if (NULL == employees) return STATUS_ERROR;
 	if (NULL == *employees) return STATUS_ERROR;
