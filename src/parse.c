@@ -11,6 +11,10 @@
 #include "parse.h"
 
 void list_employees(struct dbheader_t *dbhdr, struct employee_t *employees) {
+	// Handle bad inputs gracefully
+    if (dbhdr == NULL || employees == NULL) {
+        return;  // Do nothing, but crucially: don't crash
+    }
 	int i = 0;
 	for (; i < dbhdr->count; i++) {
 		printf("Employee %d\n", i);
@@ -23,7 +27,7 @@ void list_employees(struct dbheader_t *dbhdr, struct employee_t *employees) {
 int add_employee(struct dbheader_t *dbhdr, struct employee_t **employees, char *addstring) {
 	if (NULL == dbhdr) return STATUS_ERROR;
 	if (NULL == employees) return STATUS_ERROR;
-	//if (NULL == *employees) return STATUS_ERROR;
+	if (NULL == *employees) return STATUS_ERROR;
 	if (NULL == addstring) return STATUS_ERROR;
 
 	printf("%s\n", addstring);
