@@ -10,7 +10,7 @@
 #include "common.h"
 #include "parse.h"
 
-int output_file(int fd, struct dbheader_t *header, void *filter) {
+int output_file(int fd, struct dbheader_t *dbhdr, void *filter) {
     (void)filter;
 if (fd < 0) {
 		printf("Got a bad FD from the user\n");
