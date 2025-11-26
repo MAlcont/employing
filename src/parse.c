@@ -56,7 +56,7 @@ if (fd < 0) {
 	int count = dbhdr->count;
 
 	struct employee_t *employees = calloc(count, sizeof(struct employee_t));
-	if (employees == -1) {
+	if (employees == NULL){
 		printf("Malloc failed\n");
 		return STATUS_ERROR;
 	}
