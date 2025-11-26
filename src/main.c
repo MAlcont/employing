@@ -7,6 +7,7 @@
 #include <file.h>
 #include <parse.h>
 
+
 void print_usage(char *argv[]) {
 	printf("Usage: %s -n -f <database file>\n", argv[0]);
 	printf("\t -n - create a new db file\n");
@@ -24,6 +25,7 @@ int main(int argc, char *argv[]) {
 	int c;
 	struct employee_t *employees= NULL;
 	char *addstring = NULL;
+	bool list = false;
 
 	int dbfd = -1;
 	struct dbheader_t *dbhdr = NULL;
@@ -39,6 +41,8 @@ int main(int argc, char *argv[]) {
 			case 'a':
         addstring = optarg;
         break;
+        	case 'l':
+        		list = true;
 
 			case '?':
 				printf("Unknown option -%c\n", c);
@@ -84,6 +88,12 @@ int main(int argc, char *argv[]) {
 	if (addstring) {
 		add_employee(dbhdr, &employees, addstring);
 	}
+
+	if (list) {
+		list_employees(dbhdr, employees);
+
+	}
+
 	printf("Newfile: %d\n", newfile);
 	printf("Filepath: %s\n", filepath);
 
