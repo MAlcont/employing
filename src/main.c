@@ -11,6 +11,9 @@ void print_usage(char *argv[]) {
 	printf("Usage: %s -n -f <database file>\n", argv[0]);
 	printf("\t -n - create a new db file\n");
 	printf("\t -f - (required) path to db file\n");
+	printf("\t -l - list the employees\n");
+	printf("\t -a - add employee via CSV name, adddress, salry\n");
+
 	return;
 }
 
@@ -19,6 +22,8 @@ int main(int argc, char *argv[]) {
 	char *filepath = NULL;
 	bool newfile = false;
 	int c;
+	struct employee_t *employees= NULL;
+	char *addstring = NULL;
 
 	int dbfd = -1;
 	struct dbheader_t *dbhdr = NULL;
@@ -31,6 +36,10 @@ int main(int argc, char *argv[]) {
 			case 'f':
 				filepath = optarg;
 				break;
+			case 'a':
+        addstring = optarg;
+        break;
+
 			case '?':
 				printf("Unknown option -%c\n", c);
 				break;
@@ -67,12 +76,18 @@ int main(int argc, char *argv[]) {
 			{ printf("Failed to vaildate db header\n");
 				return -1;}
 		}
-	
 
+	if (read_employees(dbfd, dbhdr, &employees) != STATUS_SUCCESS){
+		printf("Failed to read employees");
+		return 0;
+}
+	if (addstring) {
+		add_employee(dbhdr, &employees, addstring);
+	}
 	printf("Newfile: %d\n", newfile);
 	printf("Filepath: %s\n", filepath);
 
-	output_file(dbfd, dbhdr);
+	output_file(dbfd, dbhdr, employees);
 
 return 0;
 }
