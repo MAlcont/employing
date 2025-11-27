@@ -12,6 +12,10 @@
 
 
 void list_employees(struct dbheader_t *dbhdr, struct employee_t *employees) {
+	// Handle bad inputs gracefully
+    if (dbhdr == NULL || employees == NULL) {
+        return;  // Do nothing, but crucially: don't crash
+    }
 	int i = 0;
 	for (; i < dbhdr->count; i++){
 		printf("Employee %d\n", i+1);
